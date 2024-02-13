@@ -4,9 +4,9 @@ ex ()
 {
   if [ -f $1 ] ; then
     case $1 in
-      *.tar.bz2)   tar xjf $1       ;;
-      *.tar.gz)    tar xzf $1       ;;
-      *.tar.xz)    tar xJf $1       ;;
+      *.tar.bz2)   tar xjvf $1       ;;
+      *.tar.gz)    tar xzvf $1       ;;
+      *.tar.xz)    tar xJvf $1       ;;
       *.bz2)       bunzip2 $1       ;;
       *.rar)       unrar x $1       ;;
       *.gz)        gunzip $1        ;;
@@ -26,14 +26,12 @@ ex ()
 export EDITOR=vi
 
 # ALIAS
-alias l='ls -l --color=auto'
-alias ll='ls -la --color=auto'
-alias ls='ls --color=auto'
+alias l='lsd -l --color=auto'
+alias ll='lsd -la --color=auto'
+alias ls='lsd --color=auto'
 alias zshrc='${=EDITOR} ~/.zshrc'
 alias pp10k='${=EDITOR} ~/.p10k.zsh'
 alias h='history'
 alias p='ps -f'
-alias fix='bash ~/Documents/zsh_history_fix.sh'
-alias ecr='bash ~/Documents/automated_aws_ecr_script/automated_aws_ecr_script.sh'
-alias ddgit='bash Documents/git_update_projects.sh'
 alias spwd='echo "$(whoami)@$(hostname --fqdn):$PWD"'
+alias kitty-ssh='kitty +kitten ssh' 
