@@ -70,7 +70,7 @@ bindkey "^[[1;5D" backward-word
 #arch
 bindkey '^K' kill-line
 bindkey '^A' beginning-of-line
-bindkey '^E' end-of-lin
+bindkey '^E' end-of-line
 
 # Load ; should be last.
 if [[ OS_ID=$(grep -oP '^ID=\K.*' /etc/os-release) ]]; then

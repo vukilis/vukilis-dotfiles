@@ -45,6 +45,7 @@ alias ncdu='ncdu -x ~/'
 alias du='duf --sort size'
 alias curl='curlie'
 alias ssl-c='ssh-keygen -y -f'
+# alias code='codium'
 
 # alias docker-prune='sudo docker volume ls -f dangling=true -q | xargs sudo docker volume rm && sudo docker images --quiet --filter "dangling=true" | xargs sudo docker rmi'
 # alias docker-prune='/home/vukilis/Desktop/docker/docker-cleanup.sh'
