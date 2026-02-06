@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+
 static const unsigned int refresh_rate        = 120;  /* matches dwm's mouse event processing to your monitor's refresh rate for smoother window interactions */
 static const unsigned int enable_noborder     = 1;   /* toggles noborder feature (0=disabled, 1=enabled) */
 static const unsigned int borderpx            = 1;   /* border pixel of windows */
@@ -88,14 +89,16 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define STATUSBAR "dwmblocks"
 /* commands */
-static const char *launchercmd[] = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]     = { "kitty", "zsh", NULL };
+static const char *launchercmd[]  = { "rofi", "-show", "drun", NULL };
+static const char *termcmd[]      = { "kitty", "zsh", NULL };
 /* Web app commands using xdg-open */
 static const char *gmailcmd[]     = { "webapp-launch", "https://gmail.com", NULL };
 static const char *youtubecmd[]   = { "webapp-launch", "https://youtube.com", NULL };
 static const char *chatgptcmd[]   = { "webapp-launch", "https://chatgpt.com", NULL };
-static const char *geminicmd[]      = { "webapp-launch", "https://gemini.google.com/", NULL };
-static const char *discrodcmd[]      = { "discord", "zsh", NULL };
+static const char *geminicmd[]    = { "webapp-launch", "https://gemini.google.com/", NULL };
+static const char *discrodcmd[]   = { "discord", "zsh", NULL };
+static const char *steamcmd[]     = { "steam", "zsh", NULL };
+static const char *calccmd[]      = { "gnome-calculator", NULL };
 
 static Key keys[] = {
     /* modifier                     key                        function        argument */
@@ -106,9 +109,12 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_a,                      spawn,          {.v = geminicmd } },
     { MODKEY|ShiftMask,             XK_x,                      spawn,          {.v = youtubecmd } },
     { MODKEY|ShiftMask,             XK_d,                      spawn,          {.v = discrodcmd } },
+    { MODKEY|ShiftMask,             XK_s,                      spawn,          {.v = steamcmd } },
+    { MODKEY|ShiftMask,             XK_s,                      spawn,          {.v = steamcmd } },
+    { MODKEY,                       XK_F11,                    spawn,          {.v = calccmd } },
     { MODKEY,                       XK_b,                      spawn,          SHCMD ("xdg-open https://")},
-    { MODKEY,                       XK_p,                      spawn,          SHCMD ("flameshot full -p /media/drive/Screenshots/")},
-    { MODKEY|ShiftMask,             XK_p,                      spawn,          SHCMD ("flameshot gui -p /media/drive/Screenshots/")},
+    { MODKEY,                       XK_p,                      spawn,          SHCMD ("flameshot full --path /home/vukilis/Pictures/screenshots")},
+    { MODKEY|ShiftMask,             XK_p,                      spawn,          SHCMD ("flameshot gui --path /home/vukilis/Pictures/screenshots")},	
     { MODKEY|ControlMask,           XK_p,                      spawn,          SHCMD ("flameshot gui --clipboard")},
     { MODKEY,                       XK_e,                      spawn,          SHCMD ("xdg-open .")},
     { MODKEY,                       XK_slash,                  spawn,          SHCMD ("dwm-keybinds")},
