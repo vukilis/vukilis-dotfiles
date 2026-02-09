@@ -31,13 +31,6 @@ install: all
 	mkdir -p /usr/share/xsessions/
 	test -f /usr/share/xsessions/dwm.desktop || install -Dm644 dwm.desktop /usr/share/xsessions/
 	test -f /home/${SUDO_USER}/.xinitrc || install -Dm644 .xinitrc /home/${SUDO_USER}/.xinitrc
-	mkdir -p /home/${SUDO_USER}/.config/polybar
-	cp -rf polybar/* /home/${SUDO_USER}/.config/polybar/
-	chmod +x /home/${SUDO_USER}/.config/polybar/launch.sh
-	chmod +x /home/${SUDO_USER}/.config/polybar/scripts/dwm-tags.sh
-	chmod +x /home/${SUDO_USER}/.config/polybar/scripts/wallz/wallz.py
-	chmod +x /home/${SUDO_USER}/.config/polybar/scripts/weather/main.py
-	chmod +x /home/${SUDO_USER}/.config/polybar/scripts/weather/weather.sh
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install -Dm755 scripts/* ${DESTDIR}${PREFIX}/bin/
 

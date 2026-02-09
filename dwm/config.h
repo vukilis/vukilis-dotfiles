@@ -43,6 +43,7 @@ static const char *const autostart[] = {
     "picom", "-b", NULL,
     "sh", "-c", "feh --randomize --bg-fill ~/Pictures/backgrounds/*", NULL,
     "sh", "-c", "/usr/bin/dex -a", NULL,
+    "sh", "-c", "musicpresence", NULL,
     NULL /* terminate */
 };
 
@@ -99,6 +100,7 @@ static const char *geminicmd[]    = { "webapp-launch", "https://gemini.google.co
 static const char *discrodcmd[]   = { "discord", "zsh", NULL };
 static const char *steamcmd[]     = { "steam", "zsh", NULL };
 static const char *calccmd[]      = { "gnome-calculator", NULL };
+static const char *fixpolybarcmd[] = { "sh", "-c", "~/.config/polybar/launch.sh", NULL };
 
 static Key keys[] = {
     /* modifier                     key                        function        argument */
@@ -112,6 +114,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_s,                      spawn,          {.v = steamcmd } },
     { MODKEY|ShiftMask,             XK_s,                      spawn,          {.v = steamcmd } },
     { MODKEY,                       XK_F11,                    spawn,          {.v = calccmd } },
+    { MODKEY,                       XK_F5,                     spawn,          {.v = fixpolybarcmd } },
     { MODKEY,                       XK_b,                      spawn,          SHCMD ("xdg-open https://")},
     { MODKEY,                       XK_p,                      spawn,          SHCMD ("flameshot full --path /home/vukilis/Pictures/screenshots")},
     { MODKEY|ShiftMask,             XK_p,                      spawn,          SHCMD ("flameshot gui --path /home/vukilis/Pictures/screenshots")},	

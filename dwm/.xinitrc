@@ -1,3 +1,3 @@
 #!/bin/bash
 
-dbus-run-session -- sh -c '~/.local/share/dwm-vukilis/polybar/launch.sh & exec dwm'
+dbus-run-session -- sh -c '~/.config/polybar/launch.sh & exec dwm'
