@@ -29,10 +29,14 @@ PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magent
 EDITOR=vi
 
 # History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 HISTFILE=~/.cache/zshhistory
 setopt appendhistory
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt SHARE_HISTORY
 
 #aliases and shortcuts
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
@@ -72,7 +76,7 @@ if [[ -f /etc/os-release ]]; then
     OS_ID=$(grep -oP '^ID=\K.*' /etc/os-release | tr -d '"')
 fi
 
-if [[ "$OS_ID" == "arch" ]]; then
+if [[ "$OS_ID" == "arch" || "$OS_ID" == "cachyos" ]]; then
     # --- Arch Linux Paths ---
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -159,3 +163,5 @@ cmd-usage() {
         for (i in sum) printf "%-15s %.2f minutes\n", i, sum[i]/60
     }' ~/.cmd_history_log | sort -rnk2 | head -n 5
 }
+
+if [ -e /home/vukilis/.nix-profile/etc/profile.d/nix.sh ]; then . /home/vukilis/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
