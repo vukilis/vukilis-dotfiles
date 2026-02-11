@@ -1,0 +1,3 @@
+#!/bin/sh
+# This clears the kitty graphics buffer
+kitten icat --clear --stdin no >/dev/tty

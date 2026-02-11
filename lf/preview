@@ -1,48 +1,66 @@
 #!/bin/sh
 
-# Clear the last preview (if any)
-$HOME/.config/lf/image clear
+draw() {
+  kitten icat --stdin no --transfer-mode memory \
+    --place "${w}x${h}@${x}x${y}" "$1" </dev/null >/dev/tty
+}
 
-# Calculate where the image should be placed on the screen.
-num=$(printf "%0.f\n" "`echo "$(tput cols) / 2" | bc`")
-numb=$(printf "%0.f\n" "`echo "$(tput cols) - $num - 1" | bc`")
-numc=$(printf "%0.f\n" "`echo "$(tput lines) - 2" | bc`")
+file="$1"
+w="$2"
+h="$3"
+x="$4"
+y="$5"
 
-case "$1" in
-	*.tgz|*.tar.gz) tar tzf "$1";;
-	*.tar.bz2|*.tbz2) tar tjf "$1";;
-	*.tar.txz|*.txz) xz --list "$1";;
-	*.tar) tar tf "$1";;
-	*.zip|*.jar|*.war|*.ear|*.oxt) unzip -l "$1";;
-	*.rar) unrar l "$1";;
-	*.7z) 7z l "$1";;
-	*.[1-8]) man "$1" | col -b ;;
-	*.o) nm "$1" | less ;;
-	*.torrent) transmission-show "$1";;
-	*.iso) iso-info --no-header -l "$1";;
-	*odt,*.ods,*.odp,*.sxw) odt2txt "$1";;
-	*.doc) catdoc "$1" ;;
-	*.docx) docx2txt "$1" - ;;
-	*.csv) cat "$1" | sed s/,/\\n/g ;;
-	*.pdf)
-		CACHE=$(mktemp /tmp/thumbcache.XXXXX)
-		pdftoppm -png -f 1 -singlefile "$1" "$CACHE"
-		$HOME/.config/lf/image draw "$CACHE.png" $num 1 $numb $numc
-		;;
-	*.epub)
-		CACHE=$(mktemp /tmp/thumbcache.XXXXX)
-		epub-thumbnailer "$1" "$CACHE" 1024
-		$HOME/.config/lf/image draw "$CACHE" $num 1 $numb $numc
-		;;
-	*.bmp|*.jpg|*.jpeg|*.png|*.xpm)
-		$HOME/.config/lf/image draw "$1" $num 1 $numb $numc
-		;;
-	*.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.flac) exiftool "$1";;
-	*.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
-		CACHE=$(mktemp /tmp/thumbcache.XXXXX)
-		ffmpegthumbnailer -i "$1" -o "$CACHE" -s 0
-		$HOME/.config/lf/image draw "$CACHE" $num 1 $numb $numc
-		;;
-	*) highlight --out-format ansi "$1" || cat "$1";;
+# Determine type for branching
+mime=$(file -Lb --mime-type "$file")
+
+case "$mime" in
+    image/*)
+        draw "$file"
+        exit 1
+        ;;
+    application/pdf)
+        CACHE=$(mktemp /tmp/lf-pdf.XXXXX)
+        pdftoppm -png -f 1 -singlefile "$file" "$CACHE"
+        draw "$CACHE.png"
+        rm "$CACHE.png"
+        exit 1
+        ;;
 esac
 
+# Handle all other extensions
+case "$file" in
+    *.tgz|*.tar.gz) tar tzf "$file";;
+    *.tar.bz2|*.tbz2) tar tjf "$file";;
+    *.tar.txz|*.txz) xz --list "$file";;
+    *.tar) tar tf "$file";;
+    *.zip|*.jar|*.war|*.ear|*.oxt) unzip -l "$file";;
+    *.rar) unrar l "$file";;
+    *.7z) 7z l "$file";;
+    *.[1-8]) man "$file" | col -b ;;
+    *.o) nm "$file" ;;
+    *.torrent) transmission-show "$file";;
+    *.iso) iso-info --no-header -l "$file";;
+    *odt,*.ods,*.odp,*.sxw) odt2txt "$file";;
+    *.doc) catdoc "$file" ;;
+    *.docx) docx2txt "$file" - ;;
+    *.csv) cat "$file" | sed s/,/\\n/g ;;
+    *.epub)
+        CACHE=$(mktemp /tmp/thumbcache.XXXXX)
+        epub-thumbnailer "$file" "$CACHE" 1024
+        draw "$CACHE"
+        rm "$CACHE"
+        ;;
+    *.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.flac) 
+        exiftool "$file" ;;
+    *.avi|*.mp4|*.wmv|*.dat|*.3gp|*.ogv|*.mkv|*.mpg|*.mpeg|*.vob|*.fl[icv]|*.m2v|*.mov|*.webm|*.ts|*.mts|*.m4v|*.r[am]|*.qt|*.divx)
+        CACHE=$(mktemp /tmp/thumbcache.XXXXX.png)
+        ffmpegthumbnailer -i "$file" -o "$CACHE" -s 0
+        draw "$CACHE"
+        rm "$CACHE"
+        ;;
+    *) 
+        highlight --out-format ansi "$file" || cat "$file" ;;
+esac
+
+exit 1
