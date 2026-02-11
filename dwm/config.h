@@ -90,16 +90,16 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define STATUSBAR "dwmblocks"
 /* commands */
-static const char *launchercmd[]  = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]      = { "kitty", "zsh", NULL };
+static const char *launchercmd[]   = { "rofi", "-show", "drun", NULL };
+static const char *termcmd[]       = { "kitty", "zsh", NULL };
 /* Web app commands using xdg-open */
-static const char *gmailcmd[]     = { "webapp-launch", "https://gmail.com", NULL };
-static const char *youtubecmd[]   = { "webapp-launch", "https://youtube.com", NULL };
-static const char *chatgptcmd[]   = { "webapp-launch", "https://chatgpt.com", NULL };
-static const char *geminicmd[]    = { "webapp-launch", "https://gemini.google.com/", NULL };
-static const char *discrodcmd[]   = { "discord", "zsh", NULL };
-static const char *steamcmd[]     = { "steam", "zsh", NULL };
-static const char *calccmd[]      = { "gnome-calculator", NULL };
+static const char *gmailcmd[]      = { "webapp-launch", "https://gmail.com", NULL };
+static const char *youtubecmd[]    = { "helium-browser", "--app=https://youtube.com", NULL };
+static const char *chatgptcmd[]    = { "helium-browser", "--app=https://chatgpt.com", NULL };
+static const char *geminicmd[]     = { "helium-browser", "--app=https://gemini.google.com/", NULL };
+static const char *discrodcmd[]    = { "discord", "zsh", NULL };
+static const char *steamcmd[]      = { "steam", "zsh", NULL };
+static const char *calccmd[]       = { "gnome-calculator", NULL };
 static const char *fixpolybarcmd[] = { "sh", "-c", "~/.config/polybar/launch.sh", NULL };
 
 static Key keys[] = {
