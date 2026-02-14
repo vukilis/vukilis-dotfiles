@@ -134,15 +134,18 @@ cmd-total() {
         return
     fi
 
+    # Calculate total seconds
     local total_seconds=$(awk -F',' '{sum+=$3} END {print sum}' "$log_file")
     
-    # Simple conversion to pure minutes
-    local total_minutes=$(echo "scale=2; $total_seconds / 60" | bc)
+    # Calculate minutes with 2 decimal places
+    local total_minutes=$(awk "BEGIN {printf \"%.2f\", $total_seconds / 60}")
     
     # H:M:S breakdown
-    local h=$(( total_seconds / 3600 ))
-    local m=$(( (total_seconds % 3600) / 60 ))
-    local s=$(( total_seconds % 60 ))
+    # Using ${total_seconds%.*} to strip decimals if awk returned any
+    local ts_int=${total_seconds%.*} 
+    local h=$(( ts_int / 3600 ))
+    local m=$(( (ts_int % 3600) / 60 ))
+    local s=$(( ts_int % 60 ))
 
     echo -e "\e[32m========================================\e[0m"
     echo -e "  TOTAL TIME SPENT IN TERMINAL"
