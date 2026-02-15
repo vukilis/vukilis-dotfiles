@@ -106,8 +106,6 @@ preexec() {
 precmd() {
     if [ $timer ]; then
         local elapsed=$(( SECONDS - timer ))
-        # Don't log very fast commands (less than 1s) to keep file clean
-        # Remove the 'if' line below if you want to log EVERYTHING
         if [ $elapsed -gt 0 ]; then
             echo "$(date '+%Y-%m-%d %H:%M:%S'),$last_cmd,$elapsed" >> ~/.cmd_history_log
         fi
