@@ -166,9 +166,10 @@ static Key keys[] = {
     TAGKEYS(                        XK_9,                      8)
     { MODKEY|ShiftMask,             XK_q,                      quit,           {0} },
     { MODKEY|ControlMask,           XK_q,                      spawn,          SHCMD("$HOME/.config/rofi/powermenu.sh")},
+    { MODKEY|ControlMask|ShiftMask, XK_l,                      spawn,          SHCMD("betterlockscreen -l blur")},
     { MODKEY|ControlMask|ShiftMask, XK_r,                      spawn,          SHCMD("systemctl reboot")},
-    { MODKEY|ControlMask|ShiftMask, XK_p,      		       spawn,          SHCMD("systemctl poweroff") },
-/*    { MODKEY|ControlMask|ShiftMask, XK_s,                      spawn,          SHCMD("systemctl suspend")}, */
+    { MODKEY|ControlMask|ShiftMask, XK_p,      		           spawn,          SHCMD("systemctl poweroff") },
+    // { MODKEY|ControlMask|ShiftMask, XK_s,                      spawn,          SHCMD("systemctl suspend")},
 
 };
 
