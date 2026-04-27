@@ -51,3 +51,6 @@ alias fixmouse='sudo chmod a+rw /dev/hidraw3'
 alias app-total-space="pacman -Qi | awk '/^Installed Size/ {val=\$4; unit=\$5; if (unit == \"KiB\") { sum += val / 1024 / 1024 } else if (unit == \"MiB\") { sum += val / 1024 } else if (unit == \"GiB\") { sum += val }} END { printf \"Actual Package Total: %.2f GB\n\", sum }'"
 alias app-space='pacman -Qi | awk '\''/^Name/ {pkg=$3} /^Installed Size/ {val=$4; unit=$5; if (unit=="KiB") val=val/1024; if (unit=="GiB") val=val*1024; printf "%.2f MB \t %s\n", val, pkg}'\'' | sort -n'
 alias snap-space='sudo sudbtrfs qgroup show -pcre /'
+alias fixpicom='killall picom; sleep 0.2; picom --config ~/.config/picom/picom.conf & disown'
+alias micnoise='pipewire -c filter-chain.conf'
+alias birth='stat / | grep "Birth"'
