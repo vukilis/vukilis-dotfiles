@@ -26,7 +26,7 @@ autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
 # Custom Variables
-EDITOR=vi
+EDITOR=vim
 
 # History in cache directory:
 HISTSIZE=50000
@@ -94,6 +94,60 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 if [ -e /home/website/.nix-profile/etc/profile.d/nix.sh ]; then . /home/website/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export PATH="$HOME/.asdf/shims:$PATH"
+
+# ex - archive extractor
+# usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjvf $1       ;;
+      *.tar.gz)    tar xzvf $1       ;;
+      *.tar.xz)    tar xJvf $1       ;;
+      *.bz2)       bunzip2 $1       ;;
+      *.rar)       unrar x $1       ;;
+      *.gz)        gunzip $1        ;;
+      *.tar)       tar xf $1        ;;
+      *.tbz2)      tar xjf $1       ;;
+      *.tgz)       tar xzf $1       ;;
+      *.zip)       unzip $1         ;;
+      *.Z)         uncompress $1    ;;
+      *.7z)        7z x $1          ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# Copy file with a progress bar
+cpp() {
+  rsync -ah --progress "${1}" "${2}"
+}
+
+# Copy and go to the directory
+cpg() {
+	if [ -d "$2" ]; then
+		cp "$1" "$2" && cd "$2"
+	else
+		cp "$1" "$2"
+	fi
+}
+
+# Move and go to the directory
+mvg() {
+	if [ -d "$2" ]; then
+		mv "$1" "$2" && cd "$2"
+	else
+		mv "$1" "$2"
+	fi
+}
+
+# Create and go to the directory
+mkdirg() {
+	mkdir -p "$1"
+	cd "$1"
+}
 
 # --- GLOBAL COMMAND TIME LOGGER ---
 # 1. Record start time and the command name
