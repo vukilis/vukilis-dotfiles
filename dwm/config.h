@@ -120,7 +120,7 @@ static Key keys[] = {
     { MODKEY,                       XK_p,                      spawn,          SHCMD ("flameshot full --path /home/vukilis/Pictures/screenshots")},
     { MODKEY|ShiftMask,             XK_p,                      spawn,          SHCMD ("flameshot gui --path /home/vukilis/Pictures/screenshots")},	
     { MODKEY|ControlMask,           XK_p,                      spawn,          SHCMD ("flameshot gui --clipboard")},
-    { MODKEY,                       XK_e,                      spawn,          SHCMD ("xdg-open .")},
+    { MODKEY,                       XK_e,                      spawn,          SHCMD ("thunar")},
     { MODKEY,                       XK_slash,                  spawn,          SHCMD ("dwm-keybinds")},
     { MODKEY,                       XK_w,                      spawn,          SHCMD ("looking-glass-client -F -m KEY_RIGHTCTRL")},
     { MODKEY|ShiftMask,             XK_w,                      spawn,          SHCMD ("feh --randomize --bg-fill ~/Pictures/backgrounds/*")},
