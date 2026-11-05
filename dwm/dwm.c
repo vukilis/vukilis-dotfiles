@@ -330,7 +330,7 @@ static const char autostartblocksh[] = "autostart_blocking.sh";
 static const char autostartsh[] = "autostart.sh";
 static Systray *systray = NULL;
 static const char broken[] = "broken";
-static const char dwmdir[] = "github/dwm-vukilis/scripts";
+static const char dwmdir[] = "github/dwm-titus/scripts";
 static const char localshare[] = "";
 static char stext[256];
 static int statusw;
@@ -3630,7 +3630,7 @@ void
 updatestatus(void)
 {
 	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext))) {
-		strcpy(stext, "dwm-vukilis:"VERSION);
+		strcpy(stext, "dwm-titus:"VERSION);
 		statusw = TEXTW(stext) - lrpad + 2;
 	} else {
 		char *text, *s, ch;
@@ -3875,12 +3875,17 @@ view(const Arg *arg)
 	focus(NULL);
 
 	for (Client *c = selmon->clients; c; c = c->next) {
-		if ((c->tags & arg->ui) && ISVISIBLE(c)) { // arg->ui is the selected tagset
-		    focus(c);
-		    break;
+		if ((c->tags & arg->ui) && ISVISIBLE(c)) {
+			focus(c);
+			break;
 		}
 	}
 	updatecurrentdesktop();
+
+	/* Force input focus onto the active window on the new tag */
+	if (selmon->sel) {
+		XSetInputFocus(dpy, selmon->sel->win, RevertToPointerRoot, CurrentTime);
+	}
 }
 
 pid_t

@@ -62,6 +62,7 @@ static const Rule rules[] = {
     { "warp-terminal",      NULL,     NULL,           0,         0,          1,          0,        -1 },
     { "terminator",         NULL,     NULL,           0,         0,          1,          0,        -1 },
     { "thunar",             NULL,     NULL,           0,         0,          0,          0,        -1 },
+    { "steam_app_",         NULL,     NULL,           1 << 2,    0,          0,          1,        -1 }, /* Forces Steam/Proton games to desktop 3 */
     { NULL,                 NULL,     "Event Tester", 0,         0,          0,          1,        -1 }, /* xev */
 };
 
@@ -174,11 +175,13 @@ static Key keys[] = {
 };
 
 /* button definitions */ /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, 
-ClkClientWin, or ClkRootWin */ static Button buttons[] = {
+ClkClientWin, or ClkRootWin */
 
+static Button buttons[] = {
     /* click                event mask      button          function        argument */
-    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+    { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+    { ClkWinTitle,          0,              Button1,        zoom,           {0} },
+    { ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
     { ClkClientWin,         MODKEY,         Button1,        moveorplace,    {.i = 2} },
     { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
     { ClkTagBar,            0,              Button1,        view,           {0} },
