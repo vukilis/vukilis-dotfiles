@@ -101,7 +101,7 @@ static const char *geminicmd[]     = { "helium-browser", "--app=https://gemini.g
 static const char *discrodcmd[]    = { "discord", "zsh", NULL };
 static const char *steamcmd[]      = { "steam", "zsh", NULL };
 static const char *calccmd[]       = { "gnome-calculator", NULL };
-static const char *fixpolybarcmd[] = { "sh", "-c", "~/.config/polybar/launch.sh", NULL };
+static const char *restartdesktopcmd[] = { "sh", "-c", "killall picom && picom -b && ~/.config/polybar/launch.sh", NULL };
 
 static Key keys[] = {
     /* modifier                     key                        function        argument */
@@ -115,7 +115,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_s,                      spawn,          {.v = steamcmd } },
     { MODKEY|ShiftMask,             XK_s,                      spawn,          {.v = steamcmd } },
     { MODKEY,                       XK_F11,                    spawn,          {.v = calccmd } },
-    { MODKEY,                       XK_F5,                     spawn,          {.v = fixpolybarcmd } },
+    { MODKEY,                       XK_F5,                     spawn,          {.v = restartdesktopcmd } },
     { MODKEY,                       XK_F7,                     spawn,          SHCMD("playerctl play-pause") },
     { MODKEY,                       XK_b,                      spawn,          SHCMD ("xdg-open https://")},
     { MODKEY,                       XK_p,                      spawn,          SHCMD ("flameshot full --path /home/vukilis/Pictures/screenshots")},
