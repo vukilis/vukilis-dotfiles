@@ -1,78 +1,92 @@
 * {
-    background: #1e222a;
-    foreground: #E5E9F0;
-    border-color: @background;
-    bg-selected: #282c34;
-    grey: #565c64;
-    spacing: 2;
-    width: 30em;
-    margin: 0;
-    padding: 0;
+    /* Your Palette + Derived Surface Shades */
+    bg:          #161616;
+    bg-alt:      #1f1f1f;
+    fg:          #f2ede4;
+    fg-muted:    #7a746b;
+    accent:      #e5b566;
+    border-col:  #2c2c2c;
+
+    /* Global Defaults */
+    background-color: transparent;
+    text-color:       @fg;
+    font:             "Sora 11";
+    margin:           0;
+    padding:          0;
+    spacing:          0;
 }
 
-#window {
-    background-color: @background;
-    border: 0;
-    padding: 0;
-    location: west;
-    anchor: west;
-    height: 100%;
-    margin: 0;
+window {
+    location:         west;
+    anchor:           west;
+    height:           100%;
+    width:            360px;
+    background-color: @bg;
+    border:           0 1px 0 0;
+    border-color:     @accent;
 }
 
-#mainbox {
-    background-color: @background;
-    spacing: 10px;
-    margin: 10px 0 0 0;
-    width: 200px;
+mainbox {
+    padding:          24px 18px;
+    spacing:          18px;
+    children:         [ inputbar, listview ];
 }
 
-#inputbar {
-    children: [prompt,entry];
-    background-color: @background;
+inputbar {
+    background-color: @bg-alt;
+    border:           1px;
+    border-color:     @accent;
+    border-radius:    12px;
+    padding:          12px 14px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
 }
 
-#listview {
-    background-color: @background;
-    fixed-height: true;
-    margin: 5px 0 0 10px;
+prompt {
+    text-color:       @accent;
+    font:             "Sora SemiBold 12";
 }
 
-#element {
-    padding: 5px;
-    background-color: @background;
-    text-color: @foreground;
+entry {
+    placeholder:       "Search apps...";
+    placeholder-color: @fg-muted;
+    text-color:        @fg;
+    cursor:            text;
 }
 
-element selected {
-    background-color: @bg-selected;
-    text-color: @foreground;
+listview {
+    lines:            12;
+    columns:          1;
+    fixed-height:     false;
+    scrollbar:        false;
+    spacing:          6px;
 }
 
-element-text {
-    background-color: inherit;
-    text-color: inherit;
+element {
+    padding:          10px 12px;
+    spacing:          12px;
+    border-radius:    10px;
+    orientation:      horizontal;
+    children:         [ element-icon, element-text ];
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @bg-alt;
+    text-color:       @accent;
 }
 
 element-icon {
-    background-color: inherit;
-    margin: 0 4px 0 0;
-    size: 25px;
+    size:             24px;
+    vertical-align:   0.5;
 }
 
-#entry {
-   background-color: @background;
-   text-color: @foreground;
-   placeholder: "Search";
-   placeholder-color: @grey;
-   font: "Sora Regular 20";
+element-text {
+    vertical-align:   0.5;
+    text-color:       inherit;
 }
-
-#prompt {
-   background-color: @background;
-   padding: 0 4px;
-   margin: 0 5px 0 0;
-   text-color: @foreground;
-   font: "Sora Regular 20";
-}
-
